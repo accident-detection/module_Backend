@@ -1,0 +1,29 @@
+{
+  "name": "dbLog",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "latest",
+	"method-override": "latest",
+	"mongojs": "latest",
+    "body-parser": "latest",
+    "morgan": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accident-detection/module_Backend"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Andrei Zvonimir Crnkovic",
+  "license": "MIT"
+}
