@@ -8,11 +8,27 @@ var mongojs = require("mongojs");
 var ObjectId = mongojs.ObjectId;
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var loggly = require('loggly');
+
+/**
+*	Loggly logging
+*/
+
+var client = loggly.createClient({
+	token: process.env.logglyToken,
+	subdomain: process.env.logglySubdomain,
+	tags: ['accident-detection'],
+	json:true
+});
+
+/**
+* App start
+*/
 
 app.set('port', (process.env.PORT || 5000));
 
 app.listen(app.get("port"), function() {
-	console.log("Node app is running at localhost:" + app.get('port'));
+	client.log("Node app is running at localhost:" + app.get('port'));
 });
 
 
@@ -21,14 +37,14 @@ app.listen(app.get("port"), function() {
 */
 
 if (process.env.enviroment == 'prod') {
-	console.log(new Date() + " App is started in production. Good luck!");
+	client.log(new Date() + " App is started in production. Good luck!");
 	var databaseURL = process.env.MONGODB_URL;
 }
 else {
 	var databaseURL = "test";
 }
 
-console.log(new Date() + " Database is located at: " + databaseURL);
+client.log(new Date() + " Database is located at: " + databaseURL);
 var db = mongojs(databaseURL, ['logDB']);
 
 /**
@@ -82,8 +98,12 @@ app.get('*', function(request, response) {
 function saveDevice(logEvent, response) {
 	db.logDB.save(logEvent, function(error) {
 		if (error) {
+			client.log("There was an error saving an event to the database.");
 			response.send(error);
 		}
+
+		client.log("New event added to the database.");
 	});
+
 	response.json(logEvent);
 };

@@ -11,7 +11,8 @@
 	"method-override": "latest",
 	"mongojs": "latest",
     "body-parser": "latest",
-    "morgan": "latest"
+    "morgan": "latest",
+    "loggly": "latest"
   },
   "engines": {
     "node": "0.10.x"
