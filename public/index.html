@@ -52,11 +52,19 @@
         <table class="table table-striped">
             <tr>
                 <th>time</th>
-                <th>logmsg</th>
+                <th>lat</th>
+                <th>log</th>
+                <th>alt</th>
+                <th>temp</th>
+                <th>error code</th>
             </tr>
             <tr ng-repeat="event in events">
                 <td>{{ event.time }}</td>
-                <td>{{ event.logmsg }}</td>
+                <td>{{ event.GPSlat }}</td>
+                <td>{{ event.GPSlog }}</td>
+                <td>{{ event.GPSalt }}</td>
+                <td>{{ event.temp }}</td>
+                <td>{{ event.errorCode }}</td>
             </tr>
         </table>
     </div> <!-- /container -->

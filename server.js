@@ -60,7 +60,7 @@ app.use(methodOverride());
 app.get("/api/events", function(request, response) {
 	db.logDB.find(function(error, logEvents) {
 		if (error)
-			response.send(error);
+			throw error;
 
 		response.json(logEvents);
 	});
@@ -71,7 +71,7 @@ app.get("/api/events/:logEvent_id", function(request, response) {
 		"_id": ObjectId(request.params.logEvent_id)
 	}, function(error, logEvent) {
 		if (error) {
-			response.send(error);
+			throw(error);
 		}
 
 		response.json(logEvent[0]);
@@ -81,7 +81,11 @@ app.get("/api/events/:logEvent_id", function(request, response) {
 app.post("/api/events", function(request, response) {
 	var logEvent = {
 		time: new Date(),
-		logmsg: request.body.logmsg
+		GPSlat: request.body.GPSlat,
+		GPSlog: request.body.GPSlog,
+		GPSalt: request.body.GPSalt,
+		temp: request.body.temp,
+		errorCode: request.body.errorCode
 	};
 
 	saveDevice(logEvent, response);
@@ -99,11 +103,10 @@ function saveDevice(logEvent, response) {
 	db.logDB.save(logEvent, function(error) {
 		if (error) {
 			client.log("There was an error saving an event to the database.");
-			response.send(error);
+			throw(error);
 		}
 
 		client.log("New event added to the database.");
+		response.json(logEvent);
 	});
-
-	response.json(logEvent);
 };
