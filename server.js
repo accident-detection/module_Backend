@@ -87,20 +87,42 @@ app.post("/api/events", function(request, response) {
 		if (success) {
 			logger("Device " + authedDevice.device + " atempted auth with a token and succedded.");
 
-			var logEvent = {
-				time: new Date(),
-				GPSlat: request.body.GPSlat,
-				GPSlog: request.body.GPSlog,
-				GPSalt: request.body.GPSalt,
-				temp: request.body.temp,
-				errorCode: request.body.errorCode
-			};
+			// Check if the JSON has all the needed data
+			if (
+				typeof request.body.GPSlat == "undefined"
+				|| typeof request.body.GPSlog == "undefined"
+				|| typeof request.body.GPSalt == "undefined"
+				|| typeof request.body.temp == "undefined"
+				|| typeof request.body.errorCode == "undefined"
+			) {
+				response.json({ error: "Wrong event format." });
+				logger("Wrong event format.");
+			}
+			else {
+				var logEvent = {
+					time: new Date(),
+					device: authedDevice._id,
+					GPSlat: request.body.GPSlat,
+					GPSlog: request.body.GPSlog,
+					GPSalt: request.body.GPSalt,
+					temp: request.body.temp,
+					errorCode: request.body.errorCode
+				};
 
-			saveDevice(logEvent, response);
+				saveDevice(logEvent, function(error) {
+					if (error) {
+						logger("There was an error saving an event to the database.");
+						response.json({ error: "Unable to save event." });
+					}
+
+					logger("New event added to the database.");
+					response.json(logEvent);
+				});
+			}
 		}
 		else {
 			logger("Device atempted auth with a token and failed.");
-			response.json({ error: "Auth token check failed." });
+			response.status(401).json({ error: "Auth token check failed." });
 		}
 	});
 });
@@ -130,17 +152,11 @@ function checkAuth(clientToken, callback) {
 	});
 }
 
-function saveDevice(logEvent, response) {
+function saveDevice(logEvent, callback) {
 	db.logDB.save(logEvent, function(error) {
-		if (error) {
-			logger("There was an error saving an event to the database.");
-			throw(error);
-		}
-
-		logger("New event added to the database.");
-		response.json(logEvent);
+		callback(error);
 	});
-};
+}
 
 function logger(message) {
 	if (process.env.enviroment == 'prod') {

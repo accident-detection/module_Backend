@@ -57,6 +57,7 @@
                 <th>alt</th>
                 <th>temp</th>
                 <th>error code</th>
+                <th>device</th>
             </tr>
             <tr ng-repeat="event in events">
                 <td>{{ event.time }}</td>
@@ -65,6 +66,7 @@
                 <td>{{ event.GPSalt }}</td>
                 <td>{{ event.temp }}</td>
                 <td>{{ event.errorCode }}</td>
+                <td>{{ event.device }}</td>
             </tr>
         </table>
     </div> <!-- /container -->
