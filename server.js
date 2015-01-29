@@ -81,8 +81,6 @@ app.get("/api/events/:logEvent_id", function(request, response) {
 });
 
 app.post("/api/events", function(request, response) {
-	var authToken = request.body.auth;
-
 	checkAuth(request.body.token, function(success, authedDevice) {
 		if (success) {
 			logger("Device " + authedDevice.device + " atempted auth with a token and succedded.");
@@ -141,7 +139,6 @@ function checkAuth(clientToken, callback) {
 			logger(error);
 			callback(false);
 		}
-
 
 		if (foundTokens.length == 0)
 			callback(false);
