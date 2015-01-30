@@ -47,7 +47,7 @@ else {
 }
 
 logger("Database is located at: " + databaseURL);
-var db = mongojs(databaseURL, ['logDB', 'tokens']);
+var db = mongojs(databaseURL, ['events', 'tokens']);
 
 /**
 *	Routes
@@ -60,7 +60,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
 app.get("/api/events", function(request, response) {
-	db.logDB.find(function(error, logEvents) {
+	db.events.find(function(error, logEvents) {
 		if (error)
 			throw error;
 
@@ -69,7 +69,7 @@ app.get("/api/events", function(request, response) {
 });
 
 app.get("/api/events/:logEvent_id", function(request, response) {
-	db.logDB.find({
+	db.events.find({
 		"_id": ObjectId(request.params.logEvent_id)
 	}, function(error, logEvent) {
 		if (error) {
@@ -150,7 +150,7 @@ function checkAuth(clientToken, callback) {
 }
 
 function saveDevice(logEvent, callback) {
-	db.logDB.save(logEvent, function(error) {
+	db.events.save(logEvent, function(error) {
 		callback(error);
 	});
 }
