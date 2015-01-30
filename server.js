@@ -99,7 +99,10 @@ app.post("/api/events", function(request, response) {
 			else {
 				var logEvent = {
 					time: new Date(),
-					device: authedDevice._id,
+					device: {
+						id: authedDevice._id,
+						name: authedDevice.device
+					},
 					GPSlat: request.body.GPSlat,
 					GPSlog: request.body.GPSlog,
 					GPSalt: request.body.GPSalt,
