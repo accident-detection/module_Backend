@@ -69,8 +69,9 @@ router.route('/events').get(function(request, response) {
 			logger("Error fetching data.");
 			response.status(500);
 		}
-
-		response.json(events);
+		else {
+			response.json(event);
+		}
 	})
 });
 
@@ -80,8 +81,9 @@ router.route('/events/:eventId').get(function(request, response) {
 			logger("Error fetching data.");
 			response.status(500);
 		}
-
-		response.json(event);
+		else {
+			response.json(event);
+		}
 	})
 });
 
@@ -113,12 +115,13 @@ router.route("/events").post(function(request, response) {
 
 				newEvent.save(function(error) {
 					if (error) {
-						logger("Error saving event");
+						logger("Error saving event.");
 						response.status(500).json({ error: "Error saving event." });
 					}
-
-					logger("Event " + newEvent._id + " saved.");
-					response.json(newEvent);
+					else {
+						logger("Event " + newEvent._id + " saved.");
+						response.json(newEvent);
+					}
 				});
 			}
 		}
@@ -146,13 +149,14 @@ function checkAuth(clientToken, callback) {
 		if (error) {
 			callback(false, null);
 		}
-
-		if (isEmpty(authedDevice))
-			callback(false, null);
-		else if (authedDevice.active) // If the token is set to active
-			callback(true, authedDevice);
-		else
-			callback(false, null);
+		else {
+			if (isEmpty(authedDevice))
+				callback(false, null);
+			else if (authedDevice.active) // If the token is set to active
+				callback(true, authedDevice);
+			else
+				callback(false, null);
+		}
 	});
 }
 
