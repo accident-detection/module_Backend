@@ -2,13 +2,15 @@
 *	Configuration
 */
 
-var express = require("express");
+var express = require('express');
 var app = express();
-var mongojs = require("mongojs");
-var ObjectId = mongojs.ObjectId;
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
 var loggly = require('loggly');
+var router = express.Router();
+var mongoose = require('mongoose');
+
+var Event = require('./app/models/event.js');
+var Token = require('./app/models/token.js');
 
 /**
 *	Loggly logging
@@ -33,7 +35,6 @@ app.listen(app.get("port"), function() {
 	logger("API is running at localhost:" + app.get('port'));
 });
 
-
 /**
 *	MongoDB
 */
@@ -43,49 +44,52 @@ if (process.env.enviroment == 'prod') {
 	var databaseURL = process.env.MONGODB_URL;
 }
 else {
-	var databaseURL = "test";
+	var databaseURL = "mongodb://localhost:27017/";
 }
 
+mongoose.connect(databaseURL);
 logger("Database is located at: " + databaseURL);
-var db = mongojs(databaseURL, ['events', 'tokens']);
 
 /**
 *	Routes
 */
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(express.static(__dirname + '/app/view'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(methodOverride());
+app.use('/api', router);
 
-app.get("/api/events", function(request, response) {
-	db.events.find(function(error, logEvents) {
-		if (error)
-			throw error;
-
-		response.json(logEvents);
-	});
+router.use(function(request, response, next) {
+	next();
 });
 
-app.get("/api/events/:logEvent_id", function(request, response) {
-	db.events.find({
-		"_id": ObjectId(request.params.logEvent_id)
-	}, function(error, logEvent) {
-		if (error) {
-			throw(error);
+router.route('/events').get(function(request, response) {
+	Event.find({ }, function(error, events) {
+		if (error) {
+			logger("Error fetching data.");
+			response.status(500).json({ error: "Error fetching data." });
 		}
 
-		response.json(logEvent[0]);
-	});
+		response.json(events);
+	})
 });
 
-app.post("/api/events", function(request, response) {
+router.route('/events/:eventId').get(function(request, response) {
+	Event.findById(request.params.eventId, function(error, event) {
+		if (error) {
+			logger("Error fetching data.");
+			response.status(500).json({ error: "Error fetching data." });
+		}
+
+		response.json(event);
+	})
+});
+
+router.route("/events").post(function(request, response) {
 	checkAuth(request.body.token, function(success, authedDevice) {
 		if (success) {
-			logger("Device " + authedDevice.device + " atempted auth with a token and succedded.");
+			logger("Device " + authedDevice.device + " atempted auth with a token and sucedded.");
 
-			// Check if the JSON has all the needed data
 			if (
 				typeof request.body.GPSlat == "undefined"
 				|| typeof request.body.GPSlog == "undefined"
@@ -93,40 +97,40 @@ app.post("/api/events", function(request, response) {
 				|| typeof request.body.temp == "undefined"
 				|| typeof request.body.errorCode == "undefined"
 			) {
-				response.json({ error: "Wrong event format." });
 				logger("Wrong event format.");
+				response.status(500).json({ error: "Wrong event format." });
 			}
 			else {
-				var logEvent = {
-					time: new Date(),
-					device: authedDevice._id,
-					GPSlat: request.body.GPSlat,
-					GPSlog: request.body.GPSlog,
-					GPSalt: request.body.GPSalt,
-					temp: request.body.temp,
-					errorCode: request.body.errorCode
-				};
+				var newEvent = new Event();
 
-				saveDevice(logEvent, function(error) {
+				newEvent.time = new Date();
+				newEvent.device = authedDevice._id;
+				newEvent.GPSlog = request.body.GPSlog;
+				newEvent.GPSlat = request.body.GPSlat;
+				newEvent.GPSalt = request.body.GPSalt;
+				newEvent.temp = request.body.temp;
+				newEvent.errorCode = request.body.errorCode;
+
+				newEvent.save(function(error) {
 					if (error) {
-						logger("There was an error saving an event to the database.");
-						response.json({ error: "Unable to save event." });
+						logger("Error saving event");
+						response.status(500).json({ error: "Error saving event." });
 					}
 
-					logger("New event added to the database.");
-					response.json(logEvent);
+					logger("Event " + newEvent._id + " saved.");
+					response.json(newEvent);
 				});
 			}
 		}
 		else {
-			logger("Device atempted auth with a token and failed.");
-			response.status(401).json({ error: "Auth token check failed." });
+			logger("Device attempted auth with token " + request.body.token + " and failed.");
+			response.status(401).json({ error: "Auth error. "});
 		}
 	});
 });
 
-app.get('*', function(request, response) {
-	response.sendFile(__dirname + "/public/index.html");
+app.get('/', function(request, response) {
+	response.sendFile(__dirname + "/app/view/index.html");
 });
 
 /**
@@ -134,24 +138,17 @@ app.get('*', function(request, response) {
 */
 
 function checkAuth(clientToken, callback) {
-	db.tokens.find( { token: clientToken }, function(error, foundTokens) {
+	Token.findOne({ token: clientToken }, function(error, authedDevice) {
 		if (error) {
-			logger(error);
-			callback(false);
+			callback(false, null);
 		}
 
-		if (foundTokens.length == 0)
-			callback(false);
-		else if (foundTokens[0].token == clientToken && foundTokens[0].active)
-			callback(true, foundTokens[0]);
+		if (isEmpty(authedDevice))
+			callback(false, null);
+		else if (authedDevice.active) // If the token is set to active
+			callback(true, authedDevice);
 		else
-			callback(false);
-	});
-}
-
-function saveDevice(logEvent, callback) {
-	db.events.save(logEvent, function(error) {
-		callback(error);
+			callback(false, null);
 	});
 }
 
@@ -161,4 +158,22 @@ function logger(message) {
 	}
 
 	console.log(new Date() + " " + message);
+}
+
+function isEmpty(obj) {
+	if (obj == null)
+		return true;
+
+	if (obj.length && obj.length > 0)
+		return false;
+
+	if (obj.length === 0)
+		return true;
+
+
+	for (var key in obj) {
+		if (hasOwnProperty.call(obj, key)) return false;
+	}
+
+	return true;
 }

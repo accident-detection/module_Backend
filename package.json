@@ -9,9 +9,8 @@
   "dependencies": {
     "express": "latest",
 	"method-override": "latest",
-	"mongojs": "latest",
+	"mongoose": "latest",
     "body-parser": "latest",
-    "morgan": "latest",
     "loggly": "latest"
   },
   "engines": {
