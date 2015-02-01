@@ -67,7 +67,7 @@ router.route('/events').get(function(request, response) {
 	Event.find({ }, function(error, events) {
 		if (error) {
 			logger("Error fetching data.");
-			response.status(500).json({ error: "Error fetching data." });
+			response.status(500);
 		}
 
 		response.json(events);
@@ -78,7 +78,7 @@ router.route('/events/:eventId').get(function(request, response) {
 	Event.findById(request.params.eventId, function(error, event) {
 		if (error) {
 			logger("Error fetching data.");
-			response.status(500).json({ error: "Error fetching data." });
+			response.status(500);
 		}
 
 		response.json(event);
