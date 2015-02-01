@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="logEvents">
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>accident-detection Backend</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body ng-controller="deviceController">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"><li class="active"><a href="/">Home</a></li></span>
+            <span class="icon-bar"><li><a href="#">Map</a></li></span>
+          </button>
+          <a class="navbar-brand">accident-detection Backend</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">Map</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+        <table class="table table-striped">
+            <tr>
+                <th>time</th>
+                <th>lat</th>
+                <th>log</th>
+                <th>alt</th>
+                <th>temp</th>
+                <th>error code</th>
+                <th>device</th>
+            </tr>
+            <tr ng-repeat="event in events">
+                <td>{{ event.time }}</td>
+                <td>{{ event.GPSlat }}</td>
+                <td>{{ event.GPSlog }}</td>
+                <td>{{ event.GPSalt }}</td>
+                <td>{{ event.temp }}</td>
+                <td>{{ event.errorCode }}</td>
+                <td>{{ event.device }}</td>
+            </tr>
+        </table>
+    </div> <!-- /container -->
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">2015 accident-detection - <a href="https://github.com/accident-detection/module_Backend/issues">Bug tracker</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
