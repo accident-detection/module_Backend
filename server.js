@@ -133,6 +133,10 @@ app.get('/', function(request, response) {
 	response.sendFile(__dirname + "/app/view/index.html");
 });
 
+app.get('*', function(request, response) {
+	response.sendFile(__dirname + "/app/view/404.html");
+});
+
 /**
 *	Functions
 */
