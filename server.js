@@ -70,7 +70,7 @@ router.route('/events').get(function(request, response) {
 			response.status(500);
 		}
 		else {
-			response.json(event);
+			response.json(events);
 		}
 	})
 });
