@@ -124,7 +124,7 @@ router.route("/events").post(function(request, response) {
 		}
 		else {
 			logger("Device attempted auth with token " + request.body.token + " and failed.");
-			response.status(401).json({ error: "Auth error. "});
+			response.status(401).json({ error: "Auth error."});
 		}
 	});
 });
