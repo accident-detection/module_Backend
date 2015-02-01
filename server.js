@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var loggly = require('loggly');
 var router = express.Router();
 var mongoose = require('mongoose');
+var path = require('path');
 
 var Event = require('./app/models/event.js');
 var Token = require('./app/models/token.js');
@@ -54,7 +55,7 @@ logger("Database is located at: " + databaseURL);
 *	Routes
 */
 
-app.use(express.static(__dirname + '/app/view'));
+app.use(express.static('/app/view', { root: __dirname }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api', router);
@@ -72,6 +73,17 @@ router.route('/events').get(function(request, response) {
 
 		response.json(events);
 	})
+});
+
+router.route('/device/:deviceId').get(function(request, response) {
+	Event.find( { device: request.params.deviceId }, function(error, events){
+		if (error) {
+			logger("Error fetching data.");
+			response.status(500);
+		}
+
+		response.json(events);
+	});
 });
 
 router.route('/events/:eventId').get(function(request, response) {
@@ -130,11 +142,11 @@ router.route("/events").post(function(request, response) {
 });
 
 app.get('/', function(request, response) {
-	response.sendFile(__dirname + "/app/view/index.html");
+	response.sendFile("/app/view/index.html", { root: __dirname });
 });
 
 app.get('*', function(request, response) {
-	response.sendFile(__dirname + "/app/view/404.html");
+	response.sendFile("/app/view/404.html", { root: __dirname });
 });
 
 /**
