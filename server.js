@@ -88,48 +88,57 @@ router.route('/events/:eventId').get(function(request, response) {
 });
 
 router.route("/events").post(function(request, response) {
-	checkAuth(request.body.token, function(success, authedDevice) {
-		if (success) {
-			logger("Device " + authedDevice.device + " atempted auth with a token and sucedded.");
 
-			if (
-				typeof request.body.GPSlat == "undefined"
-				|| typeof request.body.GPSlog == "undefined"
-				|| typeof request.body.GPSalt == "undefined"
-				|| typeof request.body.temp == "undefined"
-				|| typeof request.body.errorCode == "undefined"
-			) {
-				logger("Wrong event format.");
-				response.status(500).json({ error: "Wrong event format." });
+	if (typeof request.headers['x-adb-token'] == "undefined") {
+		logger("Wrong auth type.");
+		response.status(500).json({ error: "Wronge auth type." });
+	}
+	else {
+		var token = request.headers['x-adb-token'];
+
+		checkAuth(token, function(success, authedDevice) {
+			if (success) {
+				logger("Device " + authedDevice.device + " atempted auth with a token and sucedded.");
+
+				if (
+					typeof request.body.GPSlat == "undefined"
+					|| typeof request.body.GPSlog == "undefined"
+					|| typeof request.body.GPSalt == "undefined"
+					|| typeof request.body.temp == "undefined"
+					|| typeof request.body.errorCode == "undefined"
+				) {
+					logger("Wrong event format.");
+					response.status(500).json({ error: "Wrong event format." });
+				}
+				else {
+					var newEvent = new Event();
+
+					newEvent.time = new Date();
+					newEvent.device = authedDevice._id;
+					newEvent.GPSlog = request.body.GPSlog;
+					newEvent.GPSlat = request.body.GPSlat;
+					newEvent.GPSalt = request.body.GPSalt;
+					newEvent.temp = request.body.temp;
+					newEvent.errorCode = request.body.errorCode;
+
+					newEvent.save(function(error) {
+						if (error) {
+							logger("Error saving event.");
+							response.status(500).json({ error: "Error saving event." });
+						}
+						else {
+							logger("Event " + newEvent._id + " saved.");
+							response.json(newEvent);
+						}
+					});
+				}
 			}
 			else {
-				var newEvent = new Event();
-
-				newEvent.time = new Date();
-				newEvent.device = authedDevice._id;
-				newEvent.GPSlog = request.body.GPSlog;
-				newEvent.GPSlat = request.body.GPSlat;
-				newEvent.GPSalt = request.body.GPSalt;
-				newEvent.temp = request.body.temp;
-				newEvent.errorCode = request.body.errorCode;
-
-				newEvent.save(function(error) {
-					if (error) {
-						logger("Error saving event.");
-						response.status(500).json({ error: "Error saving event." });
-					}
-					else {
-						logger("Event " + newEvent._id + " saved.");
-						response.json(newEvent);
-					}
-				});
+				logger("Device attempted auth with token " + token + " and failed.");
+				response.status(401).json({ error: "Auth error."});
 			}
-		}
-		else {
-			logger("Device attempted auth with token " + request.body.token + " and failed.");
-			response.status(401).json({ error: "Auth error."});
-		}
-	});
+		});
+	}
 });
 
 app.get('/', function(request, response) {
