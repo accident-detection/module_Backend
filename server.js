@@ -90,8 +90,8 @@ router.route('/events/:eventId').get(function(request, response) {
 router.route("/events").post(function(request, response) {
 
 	if (typeof request.headers['x-adb-token'] == "undefined") {
-		logger("Wrong auth type.");
-		response.status(500).json({ error: "Wronge auth type." });
+		logger("Header x-adb-token not supplied.");
+		response.status(400).json({ error: "Header x-adb-token not supplied." });
 	}
 	else {
 		var token = request.headers['x-adb-token'];
@@ -108,7 +108,7 @@ router.route("/events").post(function(request, response) {
 					|| typeof request.body.errorCode == "undefined"
 				) {
 					logger("Wrong event format.");
-					response.status(500).json({ error: "Wrong event format." });
+					response.status(400).json({ error: "Wrong event format." });
 				}
 				else {
 					var newEvent = new Event();
@@ -128,25 +128,25 @@ router.route("/events").post(function(request, response) {
 						}
 						else {
 							logger("Event " + newEvent._id + " saved.");
-							response.json(newEvent);
+							response.status(201).json(newEvent);
 						}
 					});
 				}
 			}
 			else {
 				logger("Device attempted auth with token " + token + " and failed.");
-				response.status(401).json({ error: "Auth error."});
+				response.status(401).json({ error: "Wrong auth token supplied."});
 			}
 		});
 	}
 });
 
 app.get('/', function(request, response) {
-	response.sendFile(__dirname + "/app/view/index.html");
+	response.status(200).sendFile(__dirname + "/app/view/index.html");
 });
 
 app.get('*', function(request, response) {
-	response.sendFile(__dirname + "/app/view/404.html");
+	response.status(404).sendFile(__dirname + "/app/view/404.html");
 });
 
 /**
