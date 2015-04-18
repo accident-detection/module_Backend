@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Web.Http;
 using EventLibrary;
 using System.Web.Mvc;
+using EventRepo;
+using System.Threading.Tasks;
 
 namespace module_Backend.Controllers
 {
@@ -31,7 +33,9 @@ namespace module_Backend.Controllers
 
             Event postedEvent = new Event((double)input["lat"], (double)input["log"], (int)input["adCode"], token);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            IEventRepo repo = new MongoDBRepo("mongodb://172.16.0.7/adDb");
+
+            return repo.Save(postedEvent).Result;
         }
 
         // PUT api/<controller>/5
