@@ -33,7 +33,7 @@ namespace module_Backend.Controllers
 
             Event postedEvent = new Event((double)input["lat"], (double)input["log"], (int)input["adCode"], token);
 
-            IEventRepo repo = new MongoDBRepo("mongodb://172.16.0.7/adDb");
+            IEventRepo repo = new MongoDBRepo("mongodb://unicorn.d.h/adDb");
 
             return await repo.Save(postedEvent);
         }
