@@ -30,3 +30,5 @@
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\obj\Debug\module_Backend.csprojResolveAssemblyReference.cache
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\obj\Debug\module_Backend.dll
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\obj\Debug\module_Backend.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\EventLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\EventLibrary.pdb
