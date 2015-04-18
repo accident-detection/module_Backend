@@ -27,7 +27,7 @@ namespace module_Backend.Controllers
         }
 
         // POST api/<controller>
-        public HttpResponseMessage Post(JObject input)
+        public async Task<HttpResponseMessage> Post(JObject input)
         {
             var token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
 
@@ -35,7 +35,7 @@ namespace module_Backend.Controllers
 
             IEventRepo repo = new MongoDBRepo("mongodb://172.16.0.7/adDb");
 
-            return repo.Save(postedEvent).Result;
+            return await repo.Save(postedEvent);
         }
 
         // PUT api/<controller>/5
