@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using EventLibrary;
 using System.Net;
+using MongoDB.Bson;
 
 namespace EventRepo
 {
@@ -16,6 +17,10 @@ namespace EventRepo
         private MongoUrl _connectionStirng;
         private IMongoDatabase _db;
         private IMongoCollection<Event> _collection;
+        public IMongoCollection<Event> Collection
+        {
+            get { return _collection; }
+        }
 
         public MongoDBRepo(string url)
         {
@@ -25,16 +30,18 @@ namespace EventRepo
             _collection = _db.GetCollection<Event>("events");
         }
 
-        public async Task<HttpResponseMessage> Save(Event e)
+        public async Task<string> Save(Event e)
         {
             await _collection.InsertOneAsync(e);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return e.ID.ToString();
         }
 
-        public EventLibrary.Event FindById(int id)
+        public async Task<Event> FindById(string id)
         {
-            throw new NotImplementedException();
+            Event e = await _collection.Find<Event>(x => x.ID == ObjectId.Parse(id)).FirstAsync();
+
+            return e;
         }
 
         public List<EventLibrary.Event> FindByDate(DateTime date)
@@ -47,9 +54,12 @@ namespace EventRepo
             throw new NotImplementedException();
         }
 
-        public List<EventLibrary.Event> FindAll()
+        public async Task<List<Event>> FindAll()
         {
-            throw new NotImplementedException();
+            var filter = new BsonDocument();
+            List<Event> list = await _collection.Find(filter).ToListAsync();
+
+            return await Task<List<Event>>.FromResult(list);
         }
     }
 }

@@ -14,28 +14,39 @@ namespace module_Backend.Controllers
 {
     public class InputController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private static IEventRepo _repo;
+        static InputController()
         {
-            return new string[] { "value1", "value2" };
+            _repo = new MongoDBRepo("mongodb://unicorn.d.h/adDb");
+        }
+
+        // GET api/<controller>
+        public async Task<List<Event>> Get()
+        {
+            return await _repo.FindAll();
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public async Task<Event> Get(string id)
         {
-            return "value";
+            Event e = await _repo.FindById(id);
+
+            return e;
         }
 
         // POST api/<controller>
-        public async Task<HttpResponseMessage> Post(JObject input)
+        public async Task<string> Post(JObject input)
         {
-            var token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
+            string token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
+            double lat = (double)input["lat"];
+            double log = (double)input["log"];
+            int adCode = (int)input["adCode"];
 
-            Event postedEvent = new Event((double)input["lat"], (double)input["log"], (int)input["adCode"], token);
+            Event postedEvent = new Event(lat, log, adCode, token);
 
-            IEventRepo repo = new MongoDBRepo("mongodb://unicorn.d.h/adDb");
+            var id = await _repo.Save(postedEvent);
 
-            return await repo.Save(postedEvent);
+            return id;
         }
 
         // PUT api/<controller>/5
