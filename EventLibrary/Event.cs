@@ -12,32 +12,7 @@ namespace EventLibrary
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID
-        {
-            get;
-            set;
-        }
-
-        private double _gpsLocLat;
-        public double GpsLocLat
-        {
-            get { return _gpsLocLat; }
-            set { _gpsLocLat = value; }
-        }
-
-        private double _gpsLocLog;
-        public double GpsLocLog
-        {
-            get { return _gpsLocLog; }
-            set { _gpsLocLog = value; }
-        }
-
-        private string _userToken;
-        public string UserToken
-        {
-            get { return _userToken; }
-            set { _userToken = value; }
-        }
+        public string ID { get; set; }
 
         private DateTime _time;
         public DateTime Time
@@ -53,13 +28,50 @@ namespace EventLibrary
             set { _adCode = value; }
         }
 
-        public Event(double lat, double log, int adCode, string token)
+        private int _gpsCode;
+        public int GpsCode
         {
-            _gpsLocLat = lat;
-            _gpsLocLog = log;
-            _userToken = token;
+            get { return _gpsCode; }
+            set { _gpsCode = value; }
+        }
+
+        private double _gpsLocLat;
+        public double GpsLocLat
+        {
+            get { return _gpsLocLat; }
+            set { _gpsLocLat = value; }
+        }
+
+        private double _gpsLocLng;
+        public double GpsLocLng
+        {
+            get { return _gpsLocLng; }
+            set { _gpsLocLng = value; }
+        }
+
+        private double _gpsLocSpeed;
+        public double GpsLocSpeed
+        {
+            get { return _gpsLocSpeed; }
+            set { _gpsLocSpeed = value; }
+        }
+
+        private string _userToken;
+        public string UserToken
+        {
+            get { return _userToken; }
+            set { _userToken = value; }
+        }
+
+        public Event(DateTime time, int adCode, int gpsCode, double lat, double lng, double speed, string token)
+        {
+            _time = time;
             _adCode = adCode;
-            _time = DateTime.UtcNow;
+            _gpsCode = gpsCode;
+            _gpsLocLat = lat;
+            _gpsLocLng = lng;
+            _gpsLocSpeed = speed;
+            _userToken = token;
         }
     }
 }

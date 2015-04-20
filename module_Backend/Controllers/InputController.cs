@@ -39,11 +39,15 @@ namespace module_Backend.Controllers
         public async Task<HttpResponseMessage> Post(JObject input)
         {
             string token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
-            double lat = (double)input["lat"];
-            double log = (double)input["log"];
+            DateTime time = DateTime.UtcNow;
             int adCode = (int)input["adCode"];
+            int gpsCode = (int)input["gpsCode"];
+            double lat = (double)input["lat"];
+            double lng = (double)input["lng"];
+            double speed = (double)input["speed"];
 
-            Event postedEvent = new Event(lat, log, adCode, token);
+
+            Event postedEvent = new Event(time, adCode, gpsCode, lat, lng, speed, token);
 
             var id = await _repo.Save(postedEvent);
 

@@ -8,3 +8,10 @@
 \\vmware-host\Shared Folders\Projects\accident-detection\EventLibrary\bin\Debug\MongoDB.Driver.dll
 \\vmware-host\Shared Folders\Projects\accident-detection\EventLibrary\bin\Debug\MongoDB.Bson.xml
 \\vmware-host\Shared Folders\Projects\accident-detection\EventLibrary\bin\Debug\MongoDB.Driver.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\bin\Debug\EventLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\bin\Debug\EventLibrary.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\bin\Debug\MongoDB.Bson.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\bin\Debug\MongoDB.Driver.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\obj\Debug\EventLibrary.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\obj\Debug\EventLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventLibrary\obj\Debug\EventLibrary.pdb

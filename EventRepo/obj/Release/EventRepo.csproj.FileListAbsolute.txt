@@ -1,0 +1,1 @@
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\obj\Release\EventRepo.csprojResolveAssemblyReference.cache
