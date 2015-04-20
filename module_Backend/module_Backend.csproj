@@ -197,7 +197,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EventLibrary\EventLibrary.csproj">
+    <ProjectReference Include="..\EventLibrary\EventLibrary.csproj">
       <Project>{99ef24b7-e7a7-4470-b4ed-5443513c5a72}</Project>
       <Name>EventLibrary</Name>
     </ProjectReference>

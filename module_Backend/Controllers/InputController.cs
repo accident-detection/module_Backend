@@ -36,7 +36,7 @@ namespace module_Backend.Controllers
         }
 
         // POST api/<controller>
-        public async Task<string> Post(JObject input)
+        public async Task<HttpResponseMessage> Post(JObject input)
         {
             string token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
             double lat = (double)input["lat"];
@@ -47,7 +47,11 @@ namespace module_Backend.Controllers
 
             var id = await _repo.Save(postedEvent);
 
-            return id;
+            HttpResponseMessage hrm = new HttpResponseMessage();
+            hrm.StatusCode = HttpStatusCode.Created;
+            hrm.Content = new StringContent(id);
+
+            return hrm;
         }
 
         // PUT api/<controller>/5
