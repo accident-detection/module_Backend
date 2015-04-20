@@ -9,6 +9,7 @@ using EventLibrary;
 using System.Web.Mvc;
 using EventRepo;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace module_Backend.Controllers
 {
@@ -17,7 +18,7 @@ namespace module_Backend.Controllers
         private static IEventRepo _repo;
         static InputController()
         {
-            _repo = new MongoDBRepo("mongodb://unicorn.d.h/adDb");
+            _repo = new MongoDBRepo("mongodb://172.16.0.7/adDb");
         }
 
         // GET api/<controller>

@@ -34,13 +34,13 @@ namespace EventRepo
         {
             await _collection.InsertOneAsync(e);
 
-            return e.ID.ToString();
+            return e.ID.ToString(); ;
         }
 
         public async Task<Event> FindById(string id)
         {
-            Event e = await _collection.Find<Event>(x => x.ID == ObjectId.Parse(id)).FirstAsync();
-
+            Event e = await _collection.Find<Event>(x => x.ID == id).FirstAsync().ConfigureAwait(false);
+            
             return e;
         }
 
@@ -57,7 +57,7 @@ namespace EventRepo
         public async Task<List<Event>> FindAll()
         {
             var filter = new BsonDocument();
-            List<Event> list = await _collection.Find(filter).ToListAsync();
+            List<Event> list = await _collection.Find<Event>(filter).ToListAsync().ConfigureAwait(false);
 
             return await Task<List<Event>>.FromResult(list);
         }
