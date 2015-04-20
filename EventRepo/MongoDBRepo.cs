@@ -1,13 +1,11 @@
-﻿using MongoDB.Driver;
+﻿using EventLibrary;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using EventLibrary;
-using System.Net;
-using MongoDB.Bson;
 
 namespace EventRepo
 {
@@ -40,7 +38,7 @@ namespace EventRepo
         public async Task<Event> FindById(string id)
         {
             Event e = await _collection.Find<Event>(x => x.ID == id).FirstAsync().ConfigureAwait(false);
-            
+
             return e;
         }
 

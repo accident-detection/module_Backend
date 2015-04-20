@@ -1,12 +1,9 @@
-﻿using System;
+﻿using EventLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using EventLibrary;
-using System.Net;
-using MongoDB.Bson;
 
 namespace EventRepo
 {

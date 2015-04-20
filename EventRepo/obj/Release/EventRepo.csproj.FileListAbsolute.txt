@@ -1,1 +1,12 @@
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\EventRepo.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\EventRepo.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\MongoDB.Bson.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\MongoDB.Driver.Core.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\MongoDB.Driver.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\MongoDB.Bson.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\MongoDB.Driver.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\obj\Release\EventRepo.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\obj\Release\EventRepo.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\EventLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\bin\Release\EventLibrary.pdb
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\EventRepo\obj\Release\EventRepo.csprojResolveAssemblyReference.cache

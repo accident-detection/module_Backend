@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7663A7BC-BE74-446C-8F52-5F5C6C944714}</ProjectGuid>
+    <ProjectGuid>{86D93860-C2B3-49E9-A5EC-AA0EC2D24B3B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EventRepo</RootNamespace>
@@ -41,12 +41,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IEventRepo.cs" />
@@ -58,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventLibrary\EventLibrary.csproj">
-      <Project>{99ef24b7-e7a7-4470-b4ed-5443513c5a72}</Project>
+      <Project>{d9552f12-6271-4595-9563-cbf48830f141}</Project>
       <Name>EventLibrary</Name>
     </ProjectReference>
   </ItemGroup>

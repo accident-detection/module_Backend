@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{922D8786-3D52-42D1-9C92-47D5060868CF}</ProjectGuid>
+    <ProjectGuid>{8DC57FC0-1BBC-4494-A1A3-CB36A2B3041D}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -40,16 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MongoDB.Bson, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\MongoDB.Bson.2.0.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\MongoDB.Driver.2.0.0\lib\net45\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MongoDB.Driver.Core">
       <HintPath>..\packages\MongoDB.Driver.Core.2.0.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -146,8 +143,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InputController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -199,11 +197,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventLibrary\EventLibrary.csproj">
-      <Project>{99ef24b7-e7a7-4470-b4ed-5443513c5a72}</Project>
+      <Project>{d9552f12-6271-4595-9563-cbf48830f141}</Project>
       <Name>EventLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventRepo\EventRepo.csproj">
-      <Project>{7663a7bc-be74-446c-8f52-5f5c6c944714}</Project>
+      <Project>{86d93860-c2b3-49e9-a5ec-aa0ec2d24b3b}</Project>
       <Name>EventRepo</Name>
     </ProjectReference>
   </ItemGroup>
@@ -230,7 +228,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1516</DevelopmentServerPort>
+          <DevelopmentServerPort>1188</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1516/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
