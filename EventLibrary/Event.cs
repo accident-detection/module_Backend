@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserLibrary;
 
 namespace EventLibrary
 {
@@ -56,14 +57,14 @@ namespace EventLibrary
             set { _gpsLocSpeed = value; }
         }
 
-        private string _userToken;
-        public string UserToken
+        private string _userId;
+        public string UserId
         {
-            get { return _userToken; }
-            set { _userToken = value; }
+            get { return _userId; }
+            set { _userId = value; }
         }
 
-        public Event(DateTime time, int adCode, int gpsCode, double lat, double lng, double speed, string token)
+        public Event(DateTime time, int adCode, int gpsCode, double lat, double lng, double speed, string userId)
         {
             _time = time;
             _adCode = adCode;
@@ -71,7 +72,7 @@ namespace EventLibrary
             _gpsLocLat = lat;
             _gpsLocLng = lng;
             _gpsLocSpeed = speed;
-            _userToken = token;
+            _userId = userId;
         }
     }
 }

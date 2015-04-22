@@ -1,0 +1,12 @@
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\UserRepo.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\UserRepo.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\MongoDB.Bson.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\MongoDB.Driver.Core.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\MongoDB.Driver.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\UserLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\UserLibrary.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\MongoDB.Bson.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\bin\Release\MongoDB.Driver.xml
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\obj\Release\UserRepo.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\obj\Release\UserRepo.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\UserRepo\obj\Release\UserRepo.pdb

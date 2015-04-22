@@ -204,6 +204,14 @@
       <Project>{86d93860-c2b3-49e9-a5ec-aa0ec2d24b3b}</Project>
       <Name>EventRepo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UserLibrary\UserLibrary.csproj">
+      <Project>{8d644853-e33f-4a6e-a3f3-3972d950b811}</Project>
+      <Name>UserLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserRepo\UserRepo.csproj">
+      <Project>{e78631de-1847-469a-a8b9-d373b333941d}</Project>
+      <Name>UserRepo</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

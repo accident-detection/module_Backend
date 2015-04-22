@@ -39,3 +39,7 @@
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\EventLibrary.pdb
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\EventRepo.dll
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\EventRepo.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserLibrary.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserRepo.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserLibrary.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserRepo.pdb

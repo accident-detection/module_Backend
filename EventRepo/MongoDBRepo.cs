@@ -9,23 +9,19 @@ using System.Threading.Tasks;
 
 namespace EventRepo
 {
-    public class MongoDBRepo : IEventRepo
+    public class EventMongoDBRepo : IEventRepo
     {
         private MongoClient _client;
         private MongoUrl _connectionStirng;
         private IMongoDatabase _db;
         private IMongoCollection<Event> _collection;
-        public IMongoCollection<Event> Collection
-        {
-            get { return _collection; }
-        }
 
-        public MongoDBRepo(string url)
+        public EventMongoDBRepo(string url, string collection)
         {
             _connectionStirng = new MongoUrl(url);
             _client = new MongoClient(_connectionStirng);
             _db = _client.GetDatabase(_connectionStirng.DatabaseName);
-            _collection = _db.GetCollection<Event>("events");
+            _collection = _db.GetCollection<Event>(collection);
         }
 
         public async Task<string> Save(Event e)
