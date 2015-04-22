@@ -42,31 +42,40 @@ namespace module_Backend.Controllers
         public async Task<HttpResponseMessage> Post(JObject input)
         {
             User authedUser;
+            string token;
+            int adCode, gpsCode;
+            double lat, lng, speed;
+            DateTime time;
             HttpResponseMessage hrm = new HttpResponseMessage();
-            string token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
+
             try
             {
+                token = (Request.Headers.GetValues("adb-token")).FirstOrDefault();
                 authedUser = await _userRepo.Authenticate(token);
+
+                time = DateTime.UtcNow;
+                adCode = (int)input["adCode"];
+                gpsCode = (int)input["gpsCode"];
+                lat = (double)input["lat"];
+                lng = (double)input["lng"];
+                speed = (double)input["speed"];
             }
             catch (UserNotFoundException)
             {
                 hrm.StatusCode = HttpStatusCode.Forbidden;
-                hrm.Content = new StringContent("The user token you used is not registred");
+                hrm.Content = new StringContent("The user token you used is not registred.");
                 return hrm;
             }
-
-            DateTime time = DateTime.UtcNow;
-            int adCode = (int)input["adCode"];
-            int gpsCode = (int)input["gpsCode"];
-            double lat = (double)input["lat"];
-            double lng = (double)input["lng"];
-            double speed = (double)input["speed"];
-
+            catch (Exception)
+            {
+                hrm.StatusCode = HttpStatusCode.ExpectationFailed;
+                hrm.Content = new StringContent("Data was not formated correctly and/or some data is missing.");
+                return hrm;
+            }
 
             Event postedEvent = new Event(time, adCode, gpsCode, lat, lng, speed, authedUser.ID);
 
             var id = await _eventRepo.Save(postedEvent);
-
             
             hrm.StatusCode = HttpStatusCode.Created;
             hrm.Content = new StringContent(id);
