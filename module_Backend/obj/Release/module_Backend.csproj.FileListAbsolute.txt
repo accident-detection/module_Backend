@@ -43,3 +43,7 @@
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserRepo.dll
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserLibrary.pdb
 \\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\UserRepo.pdb
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\Logging.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\Loggly.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\Loggly.Config.dll
+\\vmware-host\Shared Folders\Projects\accident-detection\module_Backend\module_Backend\bin\Logging.pdb

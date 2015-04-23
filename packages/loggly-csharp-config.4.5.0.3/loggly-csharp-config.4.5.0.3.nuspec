@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>loggly-csharp-config</id>
+    <version>4.5.0.3</version>
+    <title>loggly-csharp-config</title>
+    <authors>neutmute</authors>
+    <owners>neutmute</owners>
+    <projectUrl>https://github.com/neutmute/loggly-csharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/neutmute/loggly-csharp/master/SolutionItems/loggly-config.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Configuration classes for loggly clients. Settings are read from app.config or can be programmatically injected at runtime. See readme.md for documentation</description>
+    <language>en-US</language>
+    <tags>loggly</tags>
+  </metadata>
+</package>

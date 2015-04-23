@@ -177,6 +177,10 @@
       <Project>{86d93860-c2b3-49e9-a5ec-aa0ec2d24b3b}</Project>
       <Name>EventRepo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{138ab095-26c5-4449-8b3b-1a5bfd1ac7c3}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserLibrary\UserLibrary.csproj">
       <Project>{8d644853-e33f-4a6e-a3f3-3972d950b811}</Project>
       <Name>UserLibrary</Name>

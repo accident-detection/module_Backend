@@ -11,6 +11,7 @@ using System.Web.Http;
 using UserRepo;
 using UserLibrary;
 using MongoDB.Bson;
+using Logging;
 
 namespace module_Backend.Controllers
 {
@@ -79,6 +80,8 @@ namespace module_Backend.Controllers
             
             hrm.StatusCode = HttpStatusCode.Created;
             hrm.Content = new StringContent(id);
+
+            await LogglyLog.Log("Event was saved from the user " + authedUser.Name);
 
             return hrm;
         }
