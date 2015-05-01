@@ -21,8 +21,8 @@ namespace module_Backend.Controllers
         private static IUserRepo _userRepo;
         public EventsController()
         {
-            _eventRepo = new EventMongoDBRepo("mongodb://172.16.0.7/adDb", "events");
-            _userRepo = new UserMongoDBRepo("mongodb://172.16.0.7/adDb", "users");
+            _eventRepo = new EventMongoDBRepo("mongodb://unicorn.d.h/adDb", "events");
+            _userRepo = new UserMongoDBRepo("mongodb://unicorn.d.h/adDb", "users");
         }
 
         // GET api/events
@@ -48,6 +48,8 @@ namespace module_Backend.Controllers
             double lat, lng, speed;
             DateTime time;
             HttpResponseMessage hrm = new HttpResponseMessage();
+
+            
 
             try
             {
@@ -81,7 +83,7 @@ namespace module_Backend.Controllers
             hrm.StatusCode = HttpStatusCode.Created;
             hrm.Content = new StringContent(id);
 
-            await LogglyLog.Log("Event was saved from the user " + authedUser.Name);
+            LogglyLog.Log("Event was saved from the user " + authedUser.Name);
 
             return hrm;
         }

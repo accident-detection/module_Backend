@@ -16,20 +16,15 @@ namespace Logging
             _loggly = new LogglyClient();
         }
 
-        public static async Task Log(string msg)
+        public static void Log(string msg)
         {
             var logEvent = new LogglyEvent();
-
             logEvent.Data.Add("message", msg);
-            await _loggly.Log(logEvent);
+            _loggly.Log(logEvent);
         }
 
-        public static async Task Log(object msg)
+        public static void LogError(string msg, Exception e)
         {
-            var logEvent = new LogglyEvent();
-
-            logEvent.Data.Add("context", msg);
-            await _loggly.Log(logEvent);
         }
     }
 }
