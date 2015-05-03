@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Showing data</h2>
+
+<div class="container">
+    <table class="table table-striped">
+        <tr>
+            <th>Time</th>
+            <th>Type of accident</th>
+            <th>Latitude</th>
+            <th>Longtitude</th>
+            <th>Driving speed</th>
+            <th>User</th>
+        </tr>
+        <tr ng-repeat="event in events">
+            <td>{{ event.Time }}</td>
+            <td>{{ event.AdCode }}</td>
+            <td>{{ event.GpsLocLat }}</td>
+            <td>{{ event.GpsLocLng }}</td>
+            <td>{{ event.GpsLocSpeed }}</td>
+            <td>{{ event.UserId }}</td>
+        </tr>
+    </table>
+</div> <!-- /container -->
